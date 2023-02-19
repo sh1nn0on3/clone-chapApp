@@ -1,7 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import Form from "./Form";
 
 export default function Login() {
+  const [emailInput, setEmailInput] = useState("");
+
   return (
     <>
       <Helmet>
@@ -11,26 +14,33 @@ export default function Login() {
           content="Ứng dụng nhắn tin với giao diện được thiết kế theo phong cách tối giản"
         />
       </Helmet>
-      <form className="min-h-screen flex flex-col gap-3 items-center justify-center ">
-        <h2 className="">Đăng Nhập vào ChatApp</h2>
-        <ul className="flex ">
-          <li className="p-2 border border-red-500 rounded-full">
-            <img
-              alt=""
-              src="https://www.xuanphuc.space/static/media/google.cadee8cdb0c0afb1a713.png"
-              className="w-12 "
+      <Form>
+        <div>
+          <p className="">Hoặc đăng nhập với email và mật khẩu của bạn:</p>
+          <div className="mt-5">
+            <label className="p-3">Email :</label>
+            <input
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
+              placeholder="Email cua ban ..."
+              className="border border-gray-400 w-full h-8 p-4 rounded-md focus:outline-none focus:border-emerald-400 "
+              autoFocus
             />
-          </li>
-          <li className="p-2 border border-red-500 rounded-full">
-            <img
-              alt=""
-              src="https://www.xuanphuc.space/static/media/facebook.01a470d813915c298403.png"
-              className="w-12"
+          </div>
+          <div className="mt-5">
+            <label className="p-3">Password :</label>
+            <input
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
+              placeholder="Mat khau cua ban ..."
+              className="border border-gray-400 w-full h-8 p-4 rounded-md focus:outline-none focus:border-emerald-400 "
+              autoFocus
             />
-          </li>
-        </ul>
-        <p></p>
-      </form>
+          </div>
+        </div>
+      </Form>
     </>
   );
 }
