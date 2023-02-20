@@ -1,18 +1,27 @@
+import { onAuthStateChanged, signInWithPopup } from "@firebase/auth";
 import React from "react";
-import {
-  GoogleAuthProvider,
-  FacebookAuthProvider,
-  signInWithPopup,
-  signOut,
-} from "firebase/auth";
+import { FacebookAuthProvider } from "firebase/auth";
+import { auth } from "../../../firebase/config";
+import { useNavigate } from "react-router-dom";
 
-// const fbProvider = firebase.auth
+const fbProvider = new FacebookAuthProvider();
 
 export default function Form({ children }) {
+
+
+
   // login fb
   const handleFacebookLogin = () => {
-    FacebookAuthProvider()
+    signInWithPopup(auth, fbProvider);
   };
+
+  //  check có user không và điều hướng đến chatroom < AuthProvider>
+  // const navigate = useNavigate()
+  // onAuthStateChanged(auth, (user) => {
+  //   if(user){
+  //     navigate("/chatroom");
+  //   }
+  // });
 
   return (
     <form>

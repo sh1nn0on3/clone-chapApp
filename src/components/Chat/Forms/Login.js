@@ -6,7 +6,6 @@ import Form from "./Form";
 export default function Login() {
   let navigate = useNavigate();
 
-  const [emailInput, setEmailInput] = useState("");
 
   const handleLogin = () => {};
 
