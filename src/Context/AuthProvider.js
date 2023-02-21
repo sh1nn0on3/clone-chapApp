@@ -6,7 +6,7 @@ import { auth } from "../firebase/config";
 // kho context dùng trong cả project
 export const AuthContext = createContext();
 
-export default function AuthProvider() {
+export default function AuthProvider({children}) {
   // user đăng nhập
   const [user, setUser] = useState({});
 
@@ -30,5 +30,5 @@ export default function AuthProvider() {
     return unsubcribed();
   }, [navigate]);
 
-  return <AuthContext.Provider value={user}>{Children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 }
