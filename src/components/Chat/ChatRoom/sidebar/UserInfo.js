@@ -7,7 +7,9 @@ import {
 
 export default function UserInfo() {
   return (
-    <div className="flex flex-col p-3 gap-3">
+    <div className="flex flex-col p-3 gap-2">
+
+      {/* sidebar chat */}
       <div className="w-full flex justify-between items-center ">
         <div>
           <img
@@ -20,11 +22,12 @@ export default function UserInfo() {
           <h2>Chat</h2>
         </div>
         <div className="hover:cursor-pointer">
-          {/* <i class="fa-light fa-magnifying-glass"></i> */}
           <FontAwesomeIcon icon={faUserGroup} />
         </div>
       </div>
-      <div className="mb-4 px-2 flex items-center bg-slate-100 rounded-full">
+
+        {/* input tìm tin nhắn */}
+      <div className=" px-2 flex items-center bg-slate-100 rounded-full">
         <div>
           <p className="px-2">
             <FontAwesomeIcon icon={faMagnifyingGlass} />
