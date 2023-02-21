@@ -1,12 +1,12 @@
 import { onAuthStateChanged } from "@firebase/auth";
-import { Children, createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../firebase/config";
 
 // kho context dùng trong cả project
 export const AuthContext = createContext();
 
-export default function AuthProvider({children}) {
+export default function AuthProvider({ children }) {
   // user đăng nhập
   const [user, setUser] = useState({});
 
@@ -26,6 +26,8 @@ export default function AuthProvider({children}) {
         });
         navigate("/chatroom");
       }
+      navigate("/login");
+      setUser({});
     });
     return unsubcribed();
   }, [navigate]);

@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserGroup,
   faMagnifyingGlass,
+  faPenSquare,
+  faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function UserInfo() {
   return (
     <div className="flex flex-col p-3 gap-2">
-
       {/* sidebar chat */}
       <div className="w-full flex justify-between items-center ">
         <div>
@@ -22,11 +23,11 @@ export default function UserInfo() {
           <h2>Chat</h2>
         </div>
         <div className="hover:cursor-pointer">
-          <FontAwesomeIcon icon={faUserGroup} />
+          <FontAwesomeIcon icon={faPenToSquare} />
         </div>
       </div>
 
-        {/* input tìm tin nhắn */}
+      {/* input tìm tin nhắn */}
       <div className=" px-2 flex items-center bg-slate-100 rounded-full">
         <div>
           <p className="px-2">
