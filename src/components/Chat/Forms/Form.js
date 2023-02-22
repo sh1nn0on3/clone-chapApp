@@ -4,18 +4,15 @@ import { FacebookAuthProvider } from "firebase/auth";
 import { auth } from "../../../firebase/config";
 import { useNavigate } from "react-router-dom";
 
-
-
 const fbProvider = new FacebookAuthProvider();
 
 export default function Form({ children }) {
-
   // login fb
   const handleFacebookLogin = () => {
-    signInWithPopup(auth, fbProvider);
-    if (auth) {
-      navigator("/chatroom");
-    }
+    signInWithPopup(auth, fbProvider).then((res) => {
+      const { user, _tokenResponse } = res;
+
+    });
   };
 
   //  check có user không và điều hướng đến chatroom < AuthProvider>

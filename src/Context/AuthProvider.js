@@ -1,3 +1,6 @@
+// + Xác thực user có tồn tại hay không ? - có thì vào -- k thì cúttt
+// + lấy dâta và truyền nó đi khắp mọi nơi = useContext
+
 import { onAuthStateChanged } from "@firebase/auth";
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,11 +28,12 @@ export default function AuthProvider({ children }) {
           photoURL,
         });
         navigate("/chatroom");
+        return;
       }
       navigate("/login");
       setUser({});
     });
-    return unsubcribed();
+    return () => unsubcribed();
   }, [navigate]);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
