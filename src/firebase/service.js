@@ -7,12 +7,12 @@ function addDocument(collectionName, data, callback) {
     ...data,
     createAt: serverTimestamp(),
   })
-    // .then((data) => {
-    //   if (typeof callback === "function") callback(data);
-    // })
-    // .catch((error) => {
-    //   console.error(error);
-    // });
+    .then((data) => {
+      if (typeof callback === "function") callback(data);
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
 
 export { addDocument };
