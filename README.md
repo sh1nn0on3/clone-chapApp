@@ -1,1 +1,2 @@
-Clone chỉ là clone mà ~~
+clone chatApp 
+    + reactjs , tailwind 
