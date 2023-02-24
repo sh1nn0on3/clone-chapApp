@@ -1,10 +1,68 @@
-import React from "react";
+import { createUserWithEmailAndPassword, signOut } from "@firebase/auth";
+import { serverTimestamp } from "firebase/firestore";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase/config";
+import { addDocument } from "../../../firebase/service";
 import Form from "./Form";
 
 export default function SignUp() {
+  const [nameInput, setNameInput] = useState("");
+
+  const [emailInput, setEmailInput] = useState("");
+
+  const [passwordInput, setPasswordInput] = useState("");
+
   let navigate = useNavigate();
+
+  const handleSubmit = () => {
+    createUserWithEmailAndPassword(auth , emailInput, passwordInput)
+      .then((userCredential) => {
+        console.log("signup success");
+        const user = userCredential.user;
+
+        // Create user firestore
+        addDocument("users", {
+          displayName: nameInput,
+          email: emailInput,
+          // photoURL: defaultPhotoURL,
+          fullPath: "",
+          uid: user.uid,
+          providerId: user.providerId,
+          stickers: [],
+          active: serverTimestamp(),
+        });
+
+        // Clear input
+        setNameInput("");
+        setEmailInput("");
+        setPasswordInput("");
+      })
+      .catch((error) => {
+        console.log("🚀 ~ file: SignUp.js:43 ~ handleBtn ~ error:", error);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log("error");
+      });
+
+    // addDocument("users", {
+    //   displayName: user.displayName,
+    //   email: user.email,
+    //   photoURL: user.photoURL,
+    //   fullPath: "",
+    //   uid: user.uid,
+    //   providerId: user.providerId,
+    // });
+    signOut(auth)
+    .then(() => {
+      console.log("Sign out successful");
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  };
 
   return (
     <>
@@ -24,18 +82,36 @@ export default function SignUp() {
             <input
               className="h-8 p-5 mt-4 w-full border border-gray-400 rounded-2xl outline-none bg-gray-50 "
               placeholder="Họ và tên của bạn ..."
+              type="text"
+              onChange={(e) => {
+                setNameInput(e.target.value);
+              }}
+              value={nameInput}
             />
             <input
               className="h-8 p-5 w-full border border-gray-400 rounded-2xl outline-none bg-gray-50 "
               placeholder="Email của bạn ..."
+              type="text"
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
+              value={emailInput}
             />
             <input
               className="h-8 p-5 w-full border border-gray-400 rounded-2xl outline-none  bg-gray-50"
               placeholder="Mật khẩu của bạn ..."
+              type="password"
+              onChange={(e) => {
+                setPasswordInput(e.target.value);
+              }}
+              value={passwordInput}
             />
           </div>
           <div className="w-full flex gap-2 justify-center items-center mt-4 max-w-2xl ">
-            <button className="w-full border border-red-500 bg-red-500 text-white font-bold p-4 rounded-full">
+            <button
+              className="w-full border border-red-500 bg-red-500 text-white font-bold p-4 rounded-full"
+              onClick={handleSubmit}
+            >
               Đăng ký
             </button>
             <button

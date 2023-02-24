@@ -20,7 +20,7 @@ export default function AuthProvider({ children }) {
     const unsubcribed = onAuthStateChanged(auth, (user) => {
       if (user) {
         // lấy các obj cần thiết từ user
-        const { displayName, email, uid, photoURL } = user;
+        const { displayName, email, uid ,photoURL} = user;
         setUser({
           displayName,
           email,
@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
         navigate("/chatroom");
         return;
       }
-      navigate("/login");
+      navigate("/signup");
       setUser({});
     });
     return () => unsubcribed();
