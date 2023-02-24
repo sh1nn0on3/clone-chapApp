@@ -13,11 +13,17 @@ const firebaseConfig = {
   projectId: "demo1-57073",
   storageBucket: "demo1-57073.appspot.com",
   messagingSenderId: "6981368181",
-  appId: "1:6981368181:web:a9a0b949fa3ece9075bb3c"
+  appId: "1:6981368181:web:a9a0b949fa3ece9075bb3c",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+
+if (window.location.hostname === "localhost") {
+  connectAuthEmulator(auth, "http://localhost:9099");
+  connectFirestoreEmulator(db, "localhost", 8080);
+  connectStorageEmulator(storage, "localhost", 9199);
+}
 
 const auth = getAuth(app);
 const db = getFirestore(app);
