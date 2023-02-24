@@ -1,18 +1,47 @@
 import { onAuthStateChanged, signInWithPopup } from "@firebase/auth";
 import React, { useContext } from "react";
 import { FacebookAuthProvider } from "firebase/auth";
-import { auth } from "../../../firebase/config";
+import { auth, db } from "../../../firebase/config";
 import { useNavigate } from "react-router-dom";
+import { addDocument } from "../../../firebase/service";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 const fbProvider = new FacebookAuthProvider();
 
 export default function Form({ children }) {
   // login fb
   const handleFacebookLogin = () => {
-    signInWithPopup(auth, fbProvider).then((res) => {
-      const { user, _tokenResponse } = res;
+    // là 1 promise nên dùng then , cacth
+    signInWithPopup(auth, fbProvider)
+      // then :  ktra đúng
+      .then((res) => {
+        const { user, _tokenResponse } = res;
 
-    });
+        // Nếu có user mới sẽ viết vào firestore
+        if (_tokenResponse.isNewUser) {
+          console.log("New User!");
+
+          addDocument("users", {
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+            fullPath: "",
+            uid: user.uid,
+            providerId: _tokenResponse.providerId,
+          });
+
+          // addDoc(collection(db, "users"), {
+          //   displayName: user.displayName,
+          //   email: user.email,
+          //   photoURL: user.photoURL,
+          //   fullPath: "",
+          //   uid: user.uid,
+          //   providerId: _tokenResponse.providerId,
+          //   createAt: serverTimestamp(),
+          // });
+        }
+      })
+      .catch();
   };
 
   //  check có user không và điều hướng đến chatroom < AuthProvider>
