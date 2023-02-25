@@ -18,13 +18,16 @@ export default function SignUp() {
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
+    // loại bỏ thuộc tính mặc định của button 
     e.preventDefault();
-    // console.log("abccc")
+
+    // create user = user/pass 
     createUserWithEmailAndPassword(auth, emailInput, passwordInput)
       .then((userCredential) => {
         console.log("signup success");
         const user = userCredential.user;
 
+        // 
         addDocument("users", {
           displayName: nameInput,
           email: emailInput,

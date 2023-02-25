@@ -1,13 +1,43 @@
+import { signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate } from "react-router-dom";
+import { auth } from "../../../firebase/config";
 import Form from "./Form";
 
 export default function Login() {
-  let navigate = useNavigate();
+  const [emailInput, setEmailInput] = useState("");
+  const [passwordInput, setPasswordInput] = useState("");
 
+  const navigate = useNavigate();
 
-  const handleLogin = () => {};
+  const handleLogin = (e) => {
+    e.preventDefault();
+
+    signInWithEmailAndPassword(auth, emailInput, passwordInput)
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        console.log("🚀 ~ file: Login.js:21 ~ .then ~ user:", user)
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+
+        console.error({ errorCode, errorMessage });
+
+        // setErrorMessage("Email hoặc mật khẩu không đúng");
+
+        // sign out when login error
+        signOut(auth)
+          .then(() => {
+            console.log("Sign out successful");
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      });
+  };
 
   return (
     <>
@@ -27,10 +57,20 @@ export default function Login() {
             <input
               className="h-8 p-5 mt-4 w-full border border-gray-400 rounded-2xl outline-none bg-gray-50 "
               placeholder="Email của bạn ..."
+              value={emailInput}
+              type="text"
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+              }}
             />
             <input
               className="h-8 p-5 w-full border border-gray-400 rounded-2xl outline-none bg-gray-50 "
               placeholder="Mật khẩu của bạn ..."
+              type="password"
+              value={passwordInput}
+              onChange={(e) => {
+                setPasswordInput(e.target.value);
+              }}
             />
           </div>
           <div className="w-full flex gap-2 justify-center items-center mt-4 max-w-2xl ">

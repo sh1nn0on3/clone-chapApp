@@ -30,7 +30,7 @@ export default function AuthProvider({ children }) {
         navigate("/chatroom");
         return;
       }
-      navigate("/signup");
+      // navigate("/signup");
       setUser({});
     });
     return () => unsubcribed();

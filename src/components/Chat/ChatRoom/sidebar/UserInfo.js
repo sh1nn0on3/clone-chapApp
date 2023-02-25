@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUserGroup,
   faMagnifyingGlass,
-  faPenSquare,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
 import { signOut } from "@firebase/auth";
 import { auth } from "../../../../firebase/config";
+import { AuthContext } from "../../../../Context/AuthProvider";
 
 export default function UserInfo() {
+
+  const data = useContext(AuthContext)
+  console.log("🚀 ~ file: UserInfo.js:14 ~ UserInfo ~ data:", data)
+  
+
   const handleLogOut = () => {
     signOut(auth);
   };
@@ -17,7 +21,7 @@ export default function UserInfo() {
     <div className="flex flex-col p-3 gap-2">
       {/* sidebar chat */}
       <div className="w-full flex justify-between items-center ">
-        <div >
+        <div>
           <img
             alt="avt"
             className="w-8 hover:cursor-pointer "
