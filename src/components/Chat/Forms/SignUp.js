@@ -1,4 +1,5 @@
-import { createUserWithEmailAndPassword, signOut } from "@firebase/auth";
+import { signOut } from "@firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
@@ -16,17 +17,18 @@ export default function SignUp() {
 
   let navigate = useNavigate();
 
-  const handleSubmit = () => {
-    createUserWithEmailAndPassword(auth , emailInput, passwordInput)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // console.log("abccc")
+    createUserWithEmailAndPassword(auth, emailInput, passwordInput)
       .then((userCredential) => {
         console.log("signup success");
         const user = userCredential.user;
 
-        // Create user firestore
         addDocument("users", {
           displayName: nameInput,
           email: emailInput,
-          // photoURL: defaultPhotoURL,
+          photoURL: "",
           fullPath: "",
           uid: user.uid,
           providerId: user.providerId,
@@ -41,27 +43,7 @@ export default function SignUp() {
       })
       .catch((error) => {
         console.log("🚀 ~ file: SignUp.js:43 ~ handleBtn ~ error:", error);
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log("error");
       });
-
-    // addDocument("users", {
-    //   displayName: user.displayName,
-    //   email: user.email,
-    //   photoURL: user.photoURL,
-    //   fullPath: "",
-    //   uid: user.uid,
-    //   providerId: user.providerId,
-    // });
-    signOut(auth)
-    .then(() => {
-      console.log("Sign out successful");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-
   };
 
   return (
