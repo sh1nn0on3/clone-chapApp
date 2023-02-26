@@ -7,12 +7,11 @@ import {
 import { signOut } from "@firebase/auth";
 import { auth } from "../../../../firebase/config";
 import { AuthContext } from "../../../../Context/AuthProvider";
+import Images from "../../../../assets/img/user.png";
 
 export default function UserInfo() {
-
-  const data = useContext(AuthContext)
-  console.log("🚀 ~ file: UserInfo.js:14 ~ UserInfo ~ data:", data)
-  
+  const data = useContext(AuthContext);
+  console.log("🚀 ~ file: UserInfo.js:14 ~ UserInfo ~ data:", data);
 
   const handleLogOut = () => {
     signOut(auth);
@@ -23,8 +22,8 @@ export default function UserInfo() {
       <div className="w-full flex justify-between items-center ">
         <div>
           <img
-            alt="avt"
-            className="w-8 hover:cursor-pointer "
+            alt="a"
+            className="w-8 rounded-full hover:cursor-pointer "
             src="https://firebasestorage.googleapis.com/v0/b/chataap-34af1.appspot.com/o/user.png?alt=media&token=84085bd3-d19e-427a-84ed-c5d1d68a01a8"
             onClick={handleLogOut}
           />
