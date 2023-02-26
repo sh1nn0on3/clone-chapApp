@@ -22,7 +22,7 @@ export default function useFirestore(collectionName, condition, callback) {
 
     // check xem có user k << chả biết để lj
     if (uid) {
-      // tạo bản có tên ... vào db << gán biến thôi chứ chả có gì @@
+      // tạo bản có tên ... vào db 
       let conditionRef = collection(db, collectionName);
 
       // thêm where check xem nó hợp k -- thêm orderBy check tgian
